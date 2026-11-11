@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neerav Singh — Astronomy & Astrophysics</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        obsidian: '#06070a',
+                        surface: 'rgba(15, 18, 26, 0.68)',
+                        surfaceHover: 'rgba(24, 29, 42, 0.82)',
+                        accent: '#e2e8f0',
+                        starlight: '#94a3b8',
+                        nebula: '#38bdf8',
+                        amberGlow: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+        body {
+            background-color: #050608;
+            color: #f1f5f9;
+            overflow-x: hidden;
+            selection-background-color: #38bdf8;
+            selection-color: #050608;
+        }
+        /* Subtle Noise Texture Overlay */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        /* Bento Card Glassmorphism & 1px Glowing Border */
+        .bento-card {
+            background: rgba(12, 15, 23, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bento-card:hover {
+            border-color: rgba(255, 255, 255, 0.22);
+            background: rgba(18, 23, 35, 0.78);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(56, 189, 248, 0.08);
+        }
+        /* Pill Navigation Active State */
+        .nav-pill {
+            transition: all 0.25s ease;
+        }
+        .nav-pill.active {
+            background: #f8fafc;
+            color: #050608;
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(248, 250, 252, 0.25);
+        }
+        /* Page Transition Animation */
+        .page-section {
+            display: none;
+            animation: fadeInPage 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .page-section.active {
+            display: block;
+        }
+        @keyframes fadeInPage {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050608;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+        /* Print Styles for CV */
+        @media print {
+            #cosmos-canvas, #jwst-bg-layer, header, footer, .no-print {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+            .bento-card {
+                border: 1px solid #cbd5e1 !important;
+                background: #ffffff !important;
+                color: #000000 !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased selection:bg-sky-400 selection:text-slate-950">
+
+    <!-- REAL JWST CARINA NEBULA ("COSMIC CLIFFS" NASA/STScI) BACKGROUND LAYER -->
+    <div id="jwst-bg-layer" class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Carina_Nebula_by_JWST.jpg/1920px-Carina_Nebula_by_JWST.jpg" 
+            alt="JWST Cosmic Cliffs Carina Nebula" 
+            class="w-full h-full object-cover object-center opacity-[0.28] scale-105 filter saturate-125 contrast-110"
+            onerror="this.src='https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2000&q=85'"
+        />
+        <!-- Deep obsidian vignette & gradient masks so Bento cards remain crisp -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#050608]/80 via-[#050608]/65 to-[#050608]/95"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,#050608_90%)]"></div>
+    </div>
+
+    <!-- LIVE INTERACTIVE ASTRONOMY CANVAS BACKGROUND (Shooting Stars & Starfield) -->
+    <canvas id="cosmos-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+    <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0 opacity-30"></div>
+
+    <!-- TOP NAVIGATION BAR (Clean Floating Navigation Dock — No Name/Location/Cohort Pills) -->
+    <header class="sticky top-0 z-40 w-full px-4 sm:px-8 pt-5 pb-3">
+        <div class="max-w-5xl mx-auto flex items-center justify-between gap-4 bento-card rounded-2xl px-4 sm:px-6 py-2.5">
+            <!-- Minimal Monogram Home Button -->
+            <a href="#home" onclick="switchPage('home'); return false;" class="w-9 h-9 rounded-xl bg-white/5 border border-white/15 flex items-center justify-center hover:border-sky-400/50 transition-colors shrink-0" title="Overview">
+                <span class="font-display font-bold text-xs tracking-wider text-white">NS</span>
+            </a>
+
+            <!-- Multi-Page Switcher Pills (Overview, Astrophotography, Instrumentation & Lab, CV) -->
+            <nav class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto max-w-full py-1 no-scrollbar" aria-label="Main Navigation">
+                <button onclick="switchPage('home')" data-page="home" class="nav-pill active px-4 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white whitespace-nowrap">
+                    Overview
+                </button>
+                <button onclick="switchPage('astrophotography')" data-page="astrophotography" class="nav-pill px-4 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white whitespace-nowrap flex items-center gap-1.5">
+                    <span>Astrophotography</span>
+                    <span id="nav-photo-count" class="text-[10px] font-mono px-1.5 py-0.2 rounded-md bg-white/10 text-slate-300">4</span>
+                </button>
+                <button onclick="switchPage('instrumentation')" data-page="instrumentation" class="nav-pill px-4 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white whitespace-nowrap">
+                    Instrumentation & Lab
+                </button>
+                <button onclick="switchPage('cv')" data-page="cv" class="nav-pill px-4 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white whitespace-nowrap">
+                    CV
+                </button>
+            </nav>
+
+            <!-- Interactive Background Mode Toggle -->
+            <div class="hidden sm:flex items-center gap-2 shrink-0">
+                <button id="constellation-toggle" onclick="toggleConstellations()" title="Toggle Constellation Mesh" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-sky-300 transition-all text-xs font-mono flex items-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sky-400"></i>
+                    <span id="sky-mode-label">JWST + Stars</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="relative z-10 flex-grow max-w-5xl w-full mx-auto px-4 sm:px-8 pt-6 pb-20">
+
+        <!-- ==========================================
+             PAGE 1: HOME / OVERVIEW (Bento Architecture)
+             ========================================== -->
+        <section id="page-home" class="page-section active space-y-6">
+            
+            <!-- Primary Profile & Brief Intro Bento Tile -->
+            <div class="bento-card rounded-3xl p-6 sm:p-10 relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-7 sm:gap-9">
+                    
+                    <!-- Profile Photo Slot (Loads ./profile.jpg from your GitHub repo) -->
+                    <div class="relative shrink-0 group">
+                        <div class="w-28 h-28 sm:w-36 sm:h-36 rounded-3xl overflow-hidden border border-white/20 bg-slate-900 shadow-2xl relative">
+                            <img 
+                                id="owner-profile-img" 
+                                src="./profile.jpg" 
+                                alt="Neerav Singh" 
+                                class="w-full h-full object-cover"
+                                onerror="this.src='https://placehold.co/400x400/0b101b/38bdf8?text=NS'"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Brief Intro & Call-to-Actions -->
+                    <div class="flex-1 text-center md:text-left space-y-4">
+                        <div>
+                            <h1 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white">
+                                Neerav Singh
+                            </h1>
+                            <p class="font-mono text-xs sm:text-sm text-sky-300 mt-1">
+                                Integrated BS-MS in Astronomy & Astrophysics · Sindhu Central University
+                            </p>
+                        </div>
+
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl font-light">
+                            I am a first-year undergraduate student in the inaugural batch of the BS-MS Astronomy and Astrophysics program. My interests center on observational astrophysics, galaxy formation and evolution, amateur astrophotography, and building custom experimental hardware.
+                        </p>
+
+                        <div class="pt-1 flex flex-wrap items-center justify-center md:justify-start gap-3">
+                            <button onclick="switchPage('astrophotography')" class="px-5 py-2.5 rounded-xl bg-white text-slate-950 font-display font-semibold text-xs sm:text-sm hover:bg-sky-100 transition-all flex items-center gap-2 shadow-lg shadow-white/10">
+                                <i data-lucide="aperture" class="w-4 h-4"></i>
+                                <span>Astrophotography</span>
+                            </button>
+                            <button onclick="switchPage('instrumentation')" class="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/15 font-display font-medium text-xs sm:text-sm transition-all flex items-center gap-2">
+                                <i data-lucide="compass" class="w-4 h-4 text-sky-400"></i>
+                                <span>Instrumentation & Lab</span>
+                            </button>
+                            <button onclick="switchPage('cv')" class="px-4 py-2.5 rounded-xl bg-transparent hover:bg-white/5 text-slate-300 hover:text-white border border-white/10 font-mono text-xs transition-all flex items-center gap-1.5">
+                                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                                <span>Curriculum Vitae</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bento Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+
+                <!-- Education Bento Card (7 cols) -->
+                <div class="md:col-span-7 bento-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="font-mono text-xs uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                                <i data-lucide="graduation-cap" class="w-4 h-4 text-sky-400"></i>
+                                Academic Trajectory
+                            </span>
+                            <span class="text-[11px] font-mono text-slate-500">01 / EDUCATION</span>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- SCU -->
+                            <div class="relative pl-5 border-l border-sky-400/40 space-y-1.5">
+                                <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-sky-400 ring-4 ring-sky-400/20"></div>
+                                <div class="flex flex-wrap items-center justify-between gap-2">
+                                    <h3 class="font-display text-lg font-semibold text-white">Integrated BS-MS in Astronomy & Astrophysics</h3>
+                                    <span class="font-mono text-xs px-2.5 py-0.5 rounded-md bg-sky-500/10 text-sky-300 border border-sky-500/20">2026 — Present</span>
+                                </div>
+                                <p class="text-sm text-slate-300 font-medium">Sindhu Central University</p>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    1st Semester · Inaugural BS-MS cohort. Dedicating the extended winter break (Mid-November to Mid-February) to foundational reading in observational astrophysics and computational data analysis.
+                                </p>
+                            </div>
+
+                            <!-- Class 12th -->
+                            <div class="relative pl-5 border-l border-white/10 space-y-1">
+                                <div class="absolute -left-[4px] top-1.5 w-2 h-2 rounded-full bg-slate-500"></div>
+                                <div class="flex flex-wrap items-center justify-between gap-2">
+                                    <h3 class="font-display text-base font-medium text-slate-200">Higher Secondary Education (Class XII)</h3>
+                                    <span class="font-mono text-xs text-slate-400">Graduated 2025</span>
+                                </div>
+                                <p class="text-xs text-slate-400">Physics, Chemistry, Mathematics (PCM) & Computer Science (Python)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                        <span>Focus: Observational Astronomy & Galaxy Evolution</span>
+                        <button onclick="switchPage('cv')" class="text-sky-400 hover:text-sky-300 font-mono flex items-center gap-1">
+                            <span>Full CV</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Featured Astrophotography Preview Card (5 cols) -->
+                <div class="md:col-span-5 bento-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group cursor-pointer" onclick="switchPage('astrophotography')">
+                    <div class="flex items-center justify-between mb-3 relative z-10">
+                        <span class="font-mono text-xs uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                            <i data-lucide="camera" class="w-4 h-4 text-amber-400"></i>
+                            Sky Captures
+                        </span>
+                        <span class="text-[11px] font-mono text-slate-500">02 / GALLERY</span>
+                    </div>
+
+                    <!-- Mini preview stack -->
+                    <div class="my-2 relative rounded-2xl overflow-hidden border border-white/10 aspect-[16/10] bg-slate-950">
+                        <img id="home-featured-img" src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=900&q=80" alt="Astrophotography Preview" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://placehold.co/800x500/090d16/38bdf8?text=Deep+Sky+Capture'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                            <div>
+                                <h4 id="home-featured-title" class="font-display text-sm font-semibold text-white">Deep Sky & Nightscapes</h4>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-white group-hover:text-slate-950 transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        View my captured night-sky exposures, deep-sky targets, and lunar frames.
+                    </p>
+                </div>
+
+                <!-- Short Star Tracker Highlight (4 cols) -->
+                <div class="md:col-span-4 bento-card rounded-3xl p-6 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-10 h-10 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
+                                <i data-lucide="compass" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">In Progress</span>
+                        </div>
+                        <h3 class="font-display text-lg font-semibold text-white">Custom Star Tracker</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Building a compact motorized star tracker to compensate for Earth's rotation during long-exposure astrophotography.
+                        </p>
+                    </div>
+                    <button onclick="switchPage('instrumentation')" class="mt-6 pt-3 border-t border-white/10 text-xs font-mono text-slate-300 hover:text-white flex items-center justify-between w-full">
+                        <span>View Lab Projects</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- High Voltage Lab Highlight (4 cols) -->
+                <div class="md:col-span-4 bento-card rounded-3xl p-6 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-10 h-10 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                                <i data-lucide="zap" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-mono text-[11px] text-slate-500">HARDWARE</span>
+                        </div>
+                        <h3 class="font-display text-lg font-semibold text-white">ZVS Drivers & Solenoids</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Constructed high-voltage flyback plasma arc generators driven by ZVS circuits and iron-core solenoid self-induction setups.
+                        </p>
+                    </div>
+                    <button onclick="switchPage('instrumentation')" class="mt-6 pt-3 border-t border-white/10 text-xs font-mono text-slate-300 hover:text-white flex items-center justify-between w-full">
+                        <span>View Lab Experiments</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- YouTube / Science Comm Highlight (4 cols) -->
+                <div class="md:col-span-4 bento-card rounded-3xl p-6 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-10 h-10 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+                                <i data-lucide="youtube" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-mono text-[11px] text-rose-300">@Nikolax08</span>
+                        </div>
+                        <h3 class="font-display text-lg font-semibold text-white">Science & Experiment Logs</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Documenting practical physics demonstrations, high-voltage arcs, and sky observations on my YouTube channel.
+                        </p>
+                    </div>
+                    <a href="https://www.youtube.com/@Nikolax08" target="_blank" rel="noopener noreferrer" class="mt-6 pt-3 border-t border-white/10 text-xs font-mono text-rose-300 hover:text-rose-200 flex items-center justify-between w-full">
+                        <span>Watch on YouTube</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             PAGE 2: ASTROPHOTOGRAPHY GALLERY (OWNER-MANAGED)
+             ========================================== -->
+        <section id="page-astrophotography" class="page-section space-y-6">
+            
+            <!-- Gallery Header (Clean — No Public Upload Buttons & No Synced Badge) -->
+            <div class="bento-card rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-sky-400">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                        <span>Observational Log & Photons</span>
+                    </div>
+                    <h2 class="font-display text-2xl sm:text-4xl font-bold text-white tracking-tight">Astrophotography Gallery</h2>
+                    <p class="text-sm text-slate-400 max-w-xl">
+                        Night-sky frames, widefield galactic exposures, and lunar/planetary captures. Click any frame to inspect full target and exposure details.
+                    </p>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div class="flex items-center gap-2 overflow-x-auto py-1 shrink-0">
+                    <button onclick="filterGallery('all')" data-filter="all" class="gallery-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono bg-white text-slate-950 font-medium">All</button>
+                    <button onclick="filterGallery('Deep Sky')" data-filter="Deep Sky" class="gallery-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono bg-white/5 text-slate-400 hover:text-white border border-white/10">Deep Sky</button>
+                    <button onclick="filterGallery('Widefield')" data-filter="Widefield" class="gallery-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono bg-white/5 text-slate-400 hover:text-white border border-white/10">Widefield</button>
+                    <button onclick="filterGallery('Solar System')" data-filter="Solar System" class="gallery-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono bg-white/5 text-slate-400 hover:text-white border border-white/10">Lunar & Planetary</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Astrophotography Grid -->
+            <div id="astro-gallery-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Populated dynamically from gallery.json or default array -->
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             PAGE 3: INSTRUMENTATION & PHYSICS LAB (CONCISE)
+             ========================================== -->
+        <section id="page-instrumentation" class="page-section space-y-6">
+            
+            <div class="bento-card rounded-3xl p-6 sm:p-8">
+                <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-amber-400 mb-2">
+                    <i data-lucide="wrench" class="w-3.5 h-3.5"></i>
+                    <span>Hardware & Experimental Physics Lab</span>
+                </div>
+                <h2 class="font-display text-2xl sm:text-4xl font-bold text-white tracking-tight">Instrumentation & Builds</h2>
+                <p class="text-sm text-slate-400 max-w-2xl mt-2">
+                    Hands-on hardware builds combining astrophotography tracking mechanics and high-voltage electromagnetic circuits.
+                </p>
+            </div>
+
+            <!-- Clean 3-Card Grid for Hardware Projects -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- 1. Custom Star Tracker (Short & Clean) -->
+                <div class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-sky-500/10 text-sky-300 border border-sky-500/20">
+                                Astro-Mechanics · In Progress
+                            </span>
+                            <i data-lucide="compass" class="w-4 h-4 text-sky-400"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white">Custom Motorized Star Tracker</h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Designing and building a portable motorized equatorial star tracker to counter Earth's sidereal rotation, enabling sharp long-exposure widefield and deep-sky astrophotography without star trailing.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+                        <span>Sidereal Drive Build</span>
+                        <span class="text-sky-300">Long-Exposure Rig</span>
+                    </div>
+                </div>
+
+                <!-- 2. ZVS Flyback Driver -->
+                <div class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                                High-Voltage Physics
+                            </span>
+                            <i data-lucide="zap" class="w-4 h-4 text-purple-400"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white">ZVS Driver & Flyback Arc Generator</h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Built a resonant Zero Voltage Switching (ZVS) oscillator circuit driving a high-voltage flyback transformer to generate sustained electrical plasma arcs and study dielectric breakdown.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+                        <span>LC Resonance</span>
+                        <span class="text-purple-300">High-Voltage Plasma</span>
+                    </div>
+                </div>
+
+                <!-- 3. Self-Induction Solenoid -->
+                <div class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                                Electromagnetism
+                            </span>
+                            <i data-lucide="magnet" class="w-4 h-4 text-amber-400"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white">Self-Induction & Iron-Core Solenoid</h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Designed and wound high-inductance iron-core solenoids to visually demonstrate Faraday’s law of electromagnetic induction, Lenz's law, and inductive back-EMF transients.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+                        <span>Back-EMF Demo</span>
+                        <a href="https://www.youtube.com/@Nikolax08" target="_blank" rel="noopener noreferrer" class="text-amber-300 hover:underline flex items-center gap-1">
+                            <span>Video Log</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             PAGE 4: CURRICULUM VITAE (CV)
+             ========================================== -->
+        <section id="page-cv" class="page-section space-y-6">
+            
+            <!-- Action Bar -->
+            <div class="bento-card rounded-3xl p-5 sm:p-6 flex flex-wrap items-center justify-between gap-4 no-print">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-sky-400">
+                        <i data-lucide="file-badge" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-display text-lg font-bold text-white">Academic Curriculum Vitae</h2>
+                        <p class="text-xs text-slate-400">Formatted for Winter Research Internships & Reading Projects</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <a id="download-custom-cv-btn" href="NeeravSingh_CV.pdf" download="NeeravSingh_CV.pdf" class="px-4 py-2 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 font-mono text-xs transition-all flex items-center gap-2">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                        <span>NeeravSingh_CV.pdf</span>
+                    </a>
+                    <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-white text-slate-950 hover:bg-sky-100 font-display font-semibold text-xs transition-all flex items-center gap-2">
+                        <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                        <span>Print / Save PDF</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CV Document Sheet -->
+            <div class="bento-card rounded-3xl p-6 sm:p-12 space-y-8 border border-white/15">
+                
+                <!-- CV Header -->
+                <div class="border-b border-white/10 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <h1 class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">Neerav Singh</h1>
+                        <p class="text-sky-300 font-medium text-sm sm:text-base mt-1">Integrated BS-MS Astronomy & Astrophysics Student (1st Year)</p>
+                        <p class="text-xs text-slate-400 mt-0.5">Sindhu Central University</p>
+                    </div>
+                    <div class="font-mono text-xs text-slate-300 space-y-1 sm:text-right">
+                        <div>Email: <a href="mailto:neeravsingh91495@gmail.com" class="text-sky-400 hover:underline">neeravsingh91495@gmail.com</a></div>
+                        <div>Telegram: <a href="https://t.me/neeravsingh" target="_blank" class="text-sky-400 hover:underline">@neeravsingh</a></div>
+                        <div>YouTube: <a href="https://www.youtube.com/@Nikolax08" target="_blank" class="text-sky-400 hover:underline">youtube.com/@Nikolax08</a></div>
+                    </div>
+                </div>
+
+                <!-- Research & Academic Objective -->
+                <div class="space-y-2">
+                    <h3 class="font-mono text-xs uppercase tracking-widest text-sky-400">01 / Academic Objective</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        First-semester undergraduate in the inaugural BS-MS Astronomy and Astrophysics cohort at Sindhu Central University. Passionate about galaxy formation and evolution, observational astronomy, and scientific instrumentation. Seeking an introductory computational or guided reading project during the extended winter break (Mid-November to Mid-February) to learn how computational data analysis is practically applied to astrophysical problems.
+                    </p>
+                </div>
+
+                <!-- Education -->
+                <div class="space-y-4">
+                    <h3 class="font-mono text-xs uppercase tracking-widest text-sky-400">02 / Education</h3>
+                    <div class="space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                            <div>
+                                <h4 class="font-display font-semibold text-white text-base">BS-MS in Astronomy and Astrophysics (Inaugural Batch)</h4>
+                                <p class="text-xs text-slate-400">Sindhu Central University · 1st Semester</p>
+                            </div>
+                            <span class="font-mono text-xs text-slate-400">2026 — Present</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                            <div>
+                                <h4 class="font-display font-semibold text-slate-200 text-sm">Higher Secondary Certificate (Class XII)</h4>
+                                <p class="text-xs text-slate-400">Physics, Chemistry, Mathematics (PCM) & Computer Science (Core Python)</p>
+                            </div>
+                            <span class="font-mono text-xs text-slate-400">Graduated 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects & Instrumentation -->
+                <div class="space-y-4">
+                    <h3 class="font-mono text-xs uppercase tracking-widest text-sky-400">03 / Experimental Projects & Astrophotography</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/10">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-display font-semibold text-white text-sm">Amateur Astrophotography & Night-Sky Imaging</h4>
+                                <span class="font-mono text-[11px] text-slate-400">Ongoing</span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Capturing and processing night-sky targets, constellations, and lunar/deep-sky frames; exploring practical observational workflows and exposure stacking.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/10">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-display font-semibold text-white text-sm">Custom Motorized Star Tracker</h4>
+                                <span class="font-mono text-[11px] text-amber-300">In Progress</span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Designing and constructing a motorized equatorial star tracker to compensate for Earth's rotation and enable longer unguided exposures in widefield and deep-sky astrophotography.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/10">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-display font-semibold text-white text-sm">High-Voltage Physics & Electromagnetism Demonstrations</h4>
+                                <span class="font-mono text-[11px] text-slate-400">Hardware & Video Log (@Nikolax08)</span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Built high-voltage electrical arc generators using flyback transformers driven by Zero Voltage Switching (ZVS) drivers, and demonstrated electromagnetic self-induction using custom iron-core solenoids.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         PERSISTENT FOOTER / CONTACT INFORMATION
+         ========================================== -->
+    <footer class="relative z-10 border-t border-white/10 bg-obsidian/80 backdrop-blur-xl mt-auto">
+        <div class="max-w-5xl mx-auto px-4 sm:px-8 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center justify-between">
+                
+                <!-- Left Column: Identity -->
+                <div class="md:col-span-5 space-y-2">
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
+                        <span class="font-display font-bold text-lg text-white tracking-tight">Neerav Singh</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
+                        1st-Year BS-MS Astronomy & Astrophysics · Sindhu Central University. Available for winter reading and introductory computational projects.
+                    </p>
+                </div>
+
+                <!-- Right Column: Required Contact Channels (Telegram, Mail, YouTube) -->
+                <div class="md:col-span-7 flex flex-wrap items-center md:justify-end gap-3">
+                    
+                    <!-- Telegram Pill -->
+                    <a href="https://t.me/neeravsingh" target="_blank" rel="noopener noreferrer" class="bento-card px-4 py-2.5 rounded-2xl flex items-center gap-2.5 text-xs font-mono text-slate-200 hover:text-sky-300 group">
+                        <i data-lucide="send" class="w-4 h-4 text-sky-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                        <div>
+                            <span class="block text-[10px] text-slate-500 uppercase">Telegram</span>
+                            <span>@neeravsingh</span>
+                        </div>
+                    </a>
+
+                    <!-- Email Pill + Copy Button -->
+                    <div class="bento-card px-4 py-2.5 rounded-2xl flex items-center gap-3 text-xs font-mono text-slate-200">
+                        <a href="mailto:neeravsingh91495@gmail.com" class="flex items-center gap-2.5 hover:text-sky-300">
+                            <i data-lucide="mail" class="w-4 h-4 text-amber-400"></i>
+                            <div>
+                                <span class="block text-[10px] text-slate-500 uppercase">Email</span>
+                                <span>neeravsingh91495@gmail.com</span>
+                            </div>
+                        </a>
+                        <button onclick="copyEmail()" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white transition-colors" title="Copy Email Address">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+
+                    <!-- YouTube Pill -->
+                    <a href="https://www.youtube.com/@Nikolax08" target="_blank" rel="noopener noreferrer" class="bento-card px-4 py-2.5 rounded-2xl flex items-center gap-2.5 text-xs font-mono text-slate-200 hover:text-rose-300 group">
+                        <i data-lucide="youtube" class="w-4 h-4 text-rose-400 group-hover:scale-110 transition-transform"></i>
+                        <div>
+                            <span class="block text-[10px] text-slate-500 uppercase">YouTube</span>
+                            <span>@Nikolax08</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] font-mono text-slate-500">
+                <span>© 2026 Neerav Singh · Background: JWST NIRCam Carina Nebula (NASA/ESA/CSA/STScI)</span>
+                <button onclick="openOwnerStudio()" class="text-slate-600 hover:text-slate-400 transition-colors flex items-center gap-1" title="Owner Studio (Shift + O)">
+                    <i data-lucide="lock" class="w-3 h-3"></i>
+                    <span>Owner Studio</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ==========================================
+         MODAL 1: OWNER-ONLY STUDIO (Press Shift+O or Lock Icon)
+         Builds gallery.json entries for your GitHub repo
+         ========================================== -->
+    <div id="owner-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div class="bento-card rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-white/20 space-y-5 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="text-[11px] font-mono uppercase tracking-widest text-sky-400">Private Owner Tool · Shift + O</span>
+                    <h3 class="font-display text-xl font-bold text-white">Astrophotography Tile Builder (`gallery.json`)</h3>
+                </div>
+                <button onclick="closeOwnerStudio()" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Public visitors <strong>cannot</strong> upload photos. To add a new astrophotography tile from your end, upload your image file into your GitHub repository (for example, `photos/orion.jpg`), fill out the details below, and either push directly with a GitHub Token or download the updated `gallery.json` file.
+            </p>
+
+            <form id="owner-shot-form" onsubmit="addShotToOwnerList(event)" class="space-y-3 border-t border-white/10 pt-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">Image Path in Repo or URL *</label>
+                        <input type="text" id="shot-path" required placeholder="photos/my-shot.jpg" class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-sky-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">Or Pick Local Photo to Auto-Embed</label>
+                        <input type="file" accept="image/*" onchange="encodeOwnerPhoto(event)" class="w-full text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-mono file:bg-sky-500/20 file:text-sky-300">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">Shot Title *</label>
+                        <input type="text" id="shot-title" required placeholder="e.g., Orion Nebula Core" class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-sky-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">Category</label>
+                        <select id="shot-category" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-white/10 text-sm text-white focus:outline-none focus:border-sky-400">
+                            <option value="Deep Sky">Deep Sky</option>
+                            <option value="Widefield">Widefield</option>
+                            <option value="Solar System">Lunar & Planetary</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">Target Designation</label>
+                        <input type="text" id="shot-target" placeholder="e.g., M42 / NGC 1976" class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-sky-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">Exposure / Equipment</label>
+                        <input type="text" id="shot-exif" placeholder="e.g., ISO 1600 · 60s · Star Tracker" class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-sky-400">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">Observation Notes</label>
+                    <textarea id="shot-notes" rows="2" placeholder="Processing details, stacking, sky conditions..." class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-sky-400"></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" class="px-4 py-2 rounded-xl bg-sky-400 text-slate-950 font-display font-semibold text-xs hover:bg-sky-300 transition-all">
+                        + Add Tile to List
+                    </button>
+                </div>
+            </form>
+
+            <!-- Generated gallery.json output -->
+            <div class="space-y-2 pt-3 border-t border-white/10">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono text-slate-400">Generated `gallery.json` Content:</span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="downloadGalleryJSON()" class="px-3 py-1.5 rounded-lg bg-white text-slate-950 font-mono text-xs font-semibold hover:bg-sky-100">
+                            Download gallery.json
+                        </button>
+                        <button onclick="copyGalleryJSON()" class="px-3 py-1.5 rounded-lg bg-white/10 text-white font-mono text-xs hover:bg-white/20">
+                            Copy JSON
+                        </button>
+                    </div>
+                </div>
+                <pre id="owner-json-output" class="p-3 rounded-2xl bg-slate-950 border border-white/10 text-[11px] font-mono text-sky-300 overflow-x-auto max-h-44"></pre>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==========================================
+         MODAL 2: FULLSCREEN ASTROPHOTOGRAPHY LIGHTBOX
+         ========================================== -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-8 bg-black/90 backdrop-blur-xl" onclick="closeLightbox()">
+        <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-center" onclick="event.stopPropagation()">
+            <div class="lg:col-span-8 flex items-center justify-center bg-slate-950/60 rounded-3xl border border-white/10 overflow-hidden p-2">
+                <img id="lightbox-img" src="" alt="Astrophotography Full View" class="max-h-[75vh] w-auto object-contain rounded-2xl">
+            </div>
+            <div class="lg:col-span-4 bento-card rounded-3xl p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                    <span id="lightbox-category" class="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-sky-500/15 text-sky-300 border border-sky-500/20">Deep Sky</span>
+                    <button onclick="closeLightbox()" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <h3 id="lightbox-title" class="font-display text-2xl font-bold text-white"></h3>
+                <div class="space-y-2 pt-2 border-t border-white/10 font-mono text-xs">
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">TARGET:</span>
+                        <span id="lightbox-target" class="text-slate-200"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">EXPOSURE / GEAR:</span>
+                        <span id="lightbox-exif" class="text-sky-300"></span>
+                    </div>
+                </div>
+                <p id="lightbox-notes" class="text-xs text-slate-300 leading-relaxed pt-2 border-t border-white/10"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden px-4 py-3 rounded-2xl bento-card border border-sky-400/40 text-xs font-mono text-white shadow-2xl flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+        <span id="toast-msg">Action completed</span>
+    </div>
+
+
+    <!-- ==========================================
+         JAVASCRIPT: ROUTER, GITHUB JSON GALLERY & JWST STARFIELD
+         ========================================== -->
+    <script>
+        // ---------------------------------------------------------
+        // 1. DEFAULT ASTROPHOTOGRAPHY GALLERY DATA
+        //    (Overridden automatically if ./gallery.json exists in your GitHub repo)
+        // ---------------------------------------------------------
+        const DEFAULT_ASTRO_SHOTS = [
+            {
+                id: 'shot-1',
+                title: 'Milky Way Galactic Core',
+                category: 'Widefield',
+                target: 'Sagittarius & Galactic Plane',
+                exif: 'Wide-Angle · Long Exposure Stack',
+                notes: 'Observing faint dust lanes and star clouds across the galactic band under dark skies.',
+                image: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=85'
+            },
+            {
+                id: 'shot-2',
+                title: 'Andromeda Galaxy & Companion Field',
+                category: 'Deep Sky',
+                target: 'M31 · NGC 224',
+                exif: 'Multi-Frame Integration · Tracked Exposure',
+                notes: 'Our nearest major galactic neighbor along with its satellite companions.',
+                image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1200&q=85'
+            },
+            {
+                id: 'shot-3',
+                title: 'Stellar Nursery & Emission Nebula',
+                category: 'Deep Sky',
+                target: 'Orion Molecular Cloud Complex',
+                exif: 'RGB Calibration · Stacked Frames',
+                notes: 'Cold gas reservoirs acting as the primary fuel for star formation and galaxy evolution.',
+                image: 'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=1200&q=85'
+            },
+            {
+                id: 'shot-4',
+                title: 'Lunar Terminator & Highlands',
+                category: 'Solar System',
+                target: 'Mare & Crater Relief',
+                exif: 'High-Speed Contrast Stack',
+                notes: 'High-contrast surface relief captured along the lunar shadow terminator.',
+                image: 'https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?auto=format&fit=crop&w=1200&q=85'
+            }
+        ];
+
+        let astroShots = [...DEFAULT_ASTRO_SHOTS];
+        let currentFilter = 'all';
+
+        // ---------------------------------------------------------
+        // 2. INITIALIZATION & AUTOMATIC ./gallery.json FETCH
+        // ---------------------------------------------------------
+        async function initPortfolio() {
+            try {
+                const res = await fetch('./gallery.json?t=' + Date.now());
+                if (res.ok) {
+                    const repoGallery = await res.json();
+                    if (Array.isArray(repoGallery) && repoGallery.length > 0) {
+                        astroShots = repoGallery;
+                    }
+                }
+            } catch (err) {
+                // Uses DEFAULT_ASTRO_SHOTS if gallery.json is not created yet
+            }
+
+            renderGallery();
+            lucide.createIcons();
+        }
+
+        // Keyboard shortcut Shift + O for Owner Studio
+        window.addEventListener('keydown', (e) => {
+            if (e.shiftKey && (e.key === 'O' || e.key === 'o')) {
+                const activeTag = document.activeElement ? document.activeElement.tagName : '';
+                if (activeTag !== 'INPUT' && activeTag !== 'TEXTAREA') {
+                    openOwnerStudio();
+                }
+            }
+        });
+
+        // ---------------------------------------------------------
+        // 3. MULTIPAGE SPA ROUTING
+        // ---------------------------------------------------------
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            const targetSection = document.getElementById(`page-${pageId}`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            document.querySelectorAll('.nav-pill').forEach(btn => {
+                if (btn.getAttribute('data-page') === pageId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            lucide.createIcons();
+        }
+
+        // ---------------------------------------------------------
+        // 4. ASTROPHOTOGRAPHY GALLERY RENDERER
+        // ---------------------------------------------------------
+        function renderGallery() {
+            const grid = document.getElementById('astro-gallery-grid');
+            const countBadge = document.getElementById('nav-photo-count');
+            if (countBadge) countBadge.textContent = astroShots.length;
+
+            // Update Home featured card with first shot
+            if (astroShots.length > 0) {
+                const latest = astroShots[0];
+                const homeImg = document.getElementById('home-featured-img');
+                const homeTitle = document.getElementById('home-featured-title');
+                if (homeImg) homeImg.src = latest.image;
+                if (homeTitle) homeTitle.textContent = latest.title;
+            }
+
+            const filtered = currentFilter === 'all'
+                ? astroShots
+                : astroShots.filter(s => s.category === currentFilter);
+
+            grid.innerHTML = filtered.map(shot => `
+                <article class="bento-card rounded-3xl overflow-hidden flex flex-col justify-between group cursor-pointer" onclick="openLightbox('${shot.id}')">
+                    <div>
+                        <div class="relative aspect-[16/10] bg-slate-950 overflow-hidden">
+                            <img src="${shot.image}" alt="${escapeHtml(shot.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://placehold.co/800x500/090d16/38bdf8?text=Astrophotography+Frame'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-black/30 opacity-80"></div>
+                            <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                                <span class="px-2.5 py-1 rounded-lg text-[10px] font-mono uppercase tracking-wider bg-black/70 backdrop-blur-md text-sky-300 border border-white/10">
+                                    ${escapeHtml(shot.category)}
+                                </span>
+                                <span class="px-2.5 py-1 rounded-lg text-[10px] font-mono bg-black/70 backdrop-blur-md text-slate-300 border border-white/10">
+                                    ${escapeHtml(shot.target || 'Celestial Target')}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="p-6 space-y-2">
+                            <h3 class="font-display text-xl font-bold text-white group-hover:text-sky-200 transition-colors">
+                                ${escapeHtml(shot.title)}
+                            </h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">${escapeHtml(shot.notes || '')}</p>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-3.5 border-t border-white/10 bg-white/[0.01] flex items-center justify-between text-[11px] font-mono text-slate-400">
+                        <span>${escapeHtml(shot.exif || 'Astrophotography Capture')}</span>
+                        <span class="text-sky-400 group-hover:text-sky-300 flex items-center gap-1">
+                            <span>Inspect</span>
+                            <i data-lucide="maximize-2" class="w-3 h-3"></i>
+                        </span>
+                    </div>
+                </article>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function filterGallery(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-filter') === cat) {
+                    btn.className = 'gallery-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono bg-white text-slate-950 font-medium';
+                } else {
+                    btn.className = 'gallery-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono bg-white/5 text-slate-400 hover:text-white border border-white/10';
+                }
+            });
+            renderGallery();
+        }
+
+        function openLightbox(id) {
+            const shot = astroShots.find(s => s.id === id);
+            if (!shot) return;
+            document.getElementById('lightbox-img').src = shot.image;
+            document.getElementById('lightbox-title').textContent = shot.title;
+            document.getElementById('lightbox-category').textContent = shot.category;
+            document.getElementById('lightbox-target').textContent = shot.target || 'N/A';
+            document.getElementById('lightbox-exif').textContent = shot.exif || 'N/A';
+            document.getElementById('lightbox-notes').textContent = shot.notes || '';
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // ---------------------------------------------------------
+        // 5. OWNER STUDIO (`gallery.json` Tile Builder)
+        // ---------------------------------------------------------
+        function openOwnerStudio() {
+            updateOwnerJSONBox();
+            const modal = document.getElementById('owner-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeOwnerStudio() {
+            const modal = document.getElementById('owner-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function encodeOwnerPhoto(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const c = document.createElement('canvas');
+                    const maxDim = 1200;
+                    let w = img.width, h = img.height;
+                    if (w > maxDim || h > maxDim) {
+                        if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+                        else { w = Math.round((w * maxDim) / h); h = maxDim; }
+                    }
+                    c.width = w; c.height = h;
+                    c.getContext('2d').drawImage(img, 0, 0, w, h);
+                    document.getElementById('shot-path').value = c.toDataURL('image/jpeg', 0.82);
+                    showToast('Photo encoded! Fill title and click + Add Tile.');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function addShotToOwnerList(e) {
+            e.preventDefault();
+            const newShot = {
+                id: 'shot-' + Date.now(),
+                title: document.getElementById('shot-title').value.trim(),
+                category: document.getElementById('shot-category').value,
+                target: document.getElementById('shot-target').value.trim() || 'Night Sky Target',
+                exif: document.getElementById('shot-exif').value.trim() || 'Captured by Neerav Singh',
+                notes: document.getElementById('shot-notes').value.trim(),
+                image: document.getElementById('shot-path').value.trim()
+            };
+            astroShots.unshift(newShot);
+            renderGallery();
+            updateOwnerJSONBox();
+            document.getElementById('owner-shot-form').reset();
+            showToast('Tile added! Download gallery.json to commit to GitHub.');
+        }
+
+        function updateOwnerJSONBox() {
+            const box = document.getElementById('owner-json-output');
+            if (box) {
+                box.textContent = JSON.stringify(astroShots, null, 2);
+            }
+        }
+
+        function copyGalleryJSON() {
+            copyTextToClipboard(JSON.stringify(astroShots, null, 2));
+            showToast('gallery.json copied to clipboard!');
+        }
+
+        function downloadGalleryJSON() {
+            const blob = new Blob([JSON.stringify(astroShots, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'gallery.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Downloaded gallery.json! Upload it to your GitHub repo.');
+        }
+
+        // ---------------------------------------------------------
+        // 6. UTILITIES (CLIPBOARD, TOAST, ESCAPE HTML)
+        // ---------------------------------------------------------
+        function copyEmail() {
+            copyTextToClipboard('neeravsingh91495@gmail.com');
+            showToast('Email copied: neeravsingh91495@gmail.com');
+        }
+
+        function copyTextToClipboard(text) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = message;
+            toast.classList.remove('hidden');
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3200);
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        // ---------------------------------------------------------
+        // 7. LIVE INTERACTIVE ASTRONOMY CANVAS (OVER JWST NEBULA)
+        // ---------------------------------------------------------
+        const canvas = document.getElementById('cosmos-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        let shootingStars = [];
+        let showConstellations = true;
+        let mouse = { x: -1000, y: -1000 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initStars();
+        }
+
+        function initStars() {
+            const count = Math.min(160, Math.floor((canvas.width * canvas.height) / 10000));
+            stars = [];
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.3,
+                    alpha: Math.random() * 0.75 + 0.2,
+                    twinkleSpeed: (Math.random() - 0.5) * 0.015,
+                    vx: (Math.random() - 0.5) * 0.12,
+                    vy: (Math.random() - 0.5) * 0.12,
+                    hue: Math.random() > 0.7 ? 200 : (Math.random() > 0.4 ? 38 : 220)
+                });
+            }
+        }
+
+        function spawnShootingStar() {
+            if (Math.random() < 0.014 && shootingStars.length < 2) {
+                shootingStars.push({
+                    x: Math.random() * canvas.width * 0.8,
+                    y: Math.random() * canvas.height * 0.35,
+                    len: Math.random() * 90 + 45,
+                    speed: Math.random() * 9 + 7,
+                    angle: Math.PI / 5 + (Math.random() - 0.5) * 0.2,
+                    opacity: 1
+                });
+            }
+        }
+
+        function toggleConstellations() {
+            showConstellations = !showConstellations;
+            const jwstLayer = document.getElementById('jwst-bg-layer');
+            if (jwstLayer) {
+                jwstLayer.style.opacity = showConstellations ? '1' : '0.35';
+            }
+            document.getElementById('sky-mode-label').textContent = showConstellations ? 'JWST + Stars' : 'Minimal Sky';
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+
+        function animateCosmos() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw & Update Stars
+            for (let i = 0; i < stars.length; i++) {
+                const s = stars[i];
+                s.x += s.vx;
+                s.y += s.vy;
+                s.alpha += s.twinkleSpeed;
+
+                if (s.alpha > 0.95 || s.alpha < 0.2) s.twinkleSpeed *= -1;
+                if (s.x < 0) s.x = canvas.width;
+                if (s.x > canvas.width) s.x = 0;
+                if (s.y < 0) s.y = canvas.height;
+                if (s.y > canvas.height) s.y = 0;
+
+                const dx = mouse.x - s.x;
+                const dy = mouse.y - s.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (showConstellations && dist < 135) {
+                    ctx.beginPath();
+                    ctx.moveTo(s.x, s.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - dist / 135) * 0.22})`;
+                    ctx.lineWidth = 0.7;
+                    ctx.stroke();
+                }
+
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${s.hue}, 80%, 88%, ${s.alpha})`;
+                ctx.fill();
+            }
+
+            // Connect nearby stars into subtle constellations when enabled
+            if (showConstellations) {
+                for (let i = 0; i < stars.length; i++) {
+                    for (let j = i + 1; j < stars.length; j++) {
+                        const dx = stars[i].x - stars[j].x;
+                        const dy = stars[i].y - stars[j].y;
+                        const d = dx * dx + dy * dy;
+                        if (d < 8000) {
+                            ctx.beginPath();
+                            ctx.moveTo(stars[i].x, stars[i].y);
+                            ctx.lineTo(stars[j].x, stars[j].y);
+                            ctx.strokeStyle = `rgba(148, 163, 184, ${(1 - d / 8000) * 0.07})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Shooting Stars / Meteors
+            spawnShootingStar();
+            for (let i = shootingStars.length - 1; i >= 0; i--) {
+                const st = shootingStars[i];
+                const tailX = st.x - Math.cos(st.angle) * st.len;
+                const tailY = st.y - Math.sin(st.angle) * st.len;
+
+                const meteorGrad = ctx.createLinearGradient(st.x, st.y, tailX, tailY);
+                meteorGrad.addColorStop(0, `rgba(255, 255, 255, ${st.opacity})`);
+                meteorGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+                ctx.beginPath();
+                ctx.moveTo(st.x, st.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.strokeStyle = meteorGrad;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                st.x += Math.cos(st.angle) * st.speed;
+                st.y += Math.sin(st.angle) * st.speed;
+                st.opacity -= 0.018;
+
+                if (st.opacity <= 0 || st.x > canvas.width || st.y > canvas.height) {
+                    shootingStars.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animateCosmos);
+        }
+
+        window.onload = function() {
+            resizeCanvas();
+            initPortfolio();
+            animateCosmos();
+        };
+    </script>
+</body>
+</html>
