@@ -6,50 +6,59 @@
     <title>Neerav Singh — Astronomy & Astrophysics</title>
 
     <!-- =======================================================================
-         OWNER CONFIGURATION (EDIT IN GOOGLE SITES -> EMBED CODE)
-         - Paste any Google Drive share link ("Anyone with the link") or URL.
-         - Google Drive links are automatically converted into direct images
-           and live PDF embeds.
-         - Zero instructions or placeholder boxes are ever shown on the live page.
+         OWNER CONFIGURATION 
          ======================================================================= -->
     <script>
         const SITE_CONFIG = {
-            // 1. CHANGEABLE BACKGROUND ASTRONOMY IMAGE (Warm star-trails / cosmic horizon)
+            // 1. CHANGEABLE BACKGROUND ASTRONOMY IMAGE
             backgroundSpaceImage: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2400&q=85",
-            backgroundOpacity: 0.34, // 0.15 to 0.55
+            backgroundOpacity: 0.34, 
 
-            // 2. YOUR PROFILE PHOTO (Paste your Google Drive share link or ./profile.jpg)
+            // 2. YOUR PROFILE PHOTO
             profilePhoto: "https://drive.google.com/file/d/1Yz6eDs6cX6ljRw5zvSxrVJrk_0dyx3is/view?usp=sharing",
 
-            // 3. YOUR CV PDF LINK (Paste your Google Drive PDF share link or ./NeeravSingh_CV.pdf)
-            // Example: "https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing"
+            // 3. YOUR CV PDF LINK 
             cvPdfDriveLink: "https://drive.google.com/file/d/1VBXUt2xSj28j6rVPgixc6jKpKrjICWCY/view",
-            // 4. ASTROPHOTOGRAPHY GALLERY 
-astrophotography: [
-    {
-        title: "Milky Way Arch",
-        caption: "Widefield · 24mm",
-        imageUrl: "https://drive.google.com/uc?export=view&id=1NrIgFjhcJz4Re0HJUG38uqe2zUkV4eis"
-    },
-    {
-        title: "Milway",
-        caption: "Phone/ Target",
-        imageUrl: "https://drive.google.com/file/d/121KfeBIsKMQssPEtIv0tIJAGr5GgY6Xx/view?usp=sharing"
-    }
-    /* ,,
-    {
-        title: "Shot 3 Title",
-        caption: "Equipment / Target",
-        imageUrl: "PASTE_DIRECT_LINK_HERE"
-    },
-    {
-        title: "Shot 4 Title",
-        caption: "Equipment / Target",
-        imageUrl: "PASTE_DIRECT_LINK_HERE"
-    }*/
-],
 
-            // 5. PROJECTS (Shown exclusively in the Projects tab)
+            // 4. ASTROPHOTOGRAPHY GALLERY 
+            astrophotography: [
+                {
+                    title: "Milky Way Arch",
+                    target: "Sagittarius Core",
+                    location: "Khaltsi, Ladakh",
+                    equipment: "Redmi 10 Prime on Tripod",
+                    settings: "24mm · f/1.8 · ISO 3200 · 30s",
+                    imageUrl: "https://drive.google.com/uc?export=view&id=1NrIgFjhcJz4Re0HJUG38uqe2zUkV4eis"
+                },
+                {
+                    title: "Milway",
+                    target: "Cygnus Region",
+                    location: "Leh, Ladakh",
+                    equipment: "Phone",
+                    settings: "Widefield Exposure",
+                    imageUrl: "https://drive.google.com/file/d/121KfeBIsKMQssPEtIv0tIJAGr5GgY6Xx/view?usp=sharing"
+                }
+                /* ,
+                {
+                    title: "Shot 3 Title",
+                    target: "Target Name",
+                    location: "Location",
+                    equipment: "Camera Info",
+                    settings: "Exposure settings",
+                    imageUrl: "PASTE_DIRECT_LINK_HERE"
+                },
+                {
+                    title: "Shot 4 Title",
+                    target: "Target Name",
+                    location: "Location",
+                    equipment: "Camera Info",
+                    settings: "Exposure settings",
+                    imageUrl: "PASTE_DIRECT_LINK_HERE"
+                } 
+                */
+            ],
+
+            // 5. PROJECTS
             projects: [
                 {
                     title: "Custom Motorized Star Tracker",
@@ -78,7 +87,7 @@ astrophotography: [
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Instrument Serif (Tall Condensed Display like Screenshot), Inter (Apple SF Pro feel), JetBrains Mono -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -107,9 +116,7 @@ astrophotography: [
     </script>
 
     <style>
-        :root {
-            color-scheme: dark;
-        }
+        :root { color-scheme: dark; }
         body {
             background-color: #0D0E12;
             color: #F5F5F7;
@@ -120,18 +127,14 @@ astrophotography: [
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Apple Cupertino Frosted Glass Surface */
         .apple-glass {
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.03) 100%);
             backdrop-filter: blur(32px) saturate(180%);
             -webkit-backdrop-filter: blur(32px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 
-                0 24px 48px -12px rgba(0, 0, 0, 0.55),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+            box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.55), inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
         }
 
-        /* Hero Info Tile with Warm Star-Trail Atmospheric Glow (Inspired by Screenshot) */
         .hero-info-tile {
             background: 
                 radial-gradient(110% 120% at 88% 20%, rgba(212, 175, 122, 0.20) 0%, rgba(255, 255, 255, 0.03) 55%, rgba(13, 14, 18, 0.72) 100%),
@@ -139,12 +142,9 @@ astrophotography: [
             backdrop-filter: blur(36px) saturate(190%);
             -webkit-backdrop-filter: blur(36px) saturate(190%);
             border: 1px solid rgba(255, 255, 255, 0.14);
-            box-shadow: 
-                0 30px 60px -15px rgba(0, 0, 0, 0.65),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
         }
 
-        /* Top Pill Navigation Dock */
         .apple-nav-dock {
             background: rgba(24, 24, 29, 0.68);
             backdrop-filter: blur(24px) saturate(180%);
@@ -157,9 +157,7 @@ astrophotography: [
             color: #A1A1A6;
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .nav-pill:hover {
-            color: #F5F5F7;
-        }
+        .nav-pill:hover { color: #F5F5F7; }
         .nav-pill.active {
             background: #F5F5F7;
             color: #0D0E12;
@@ -167,14 +165,11 @@ astrophotography: [
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
         }
 
-        /* Smooth Apple-style View Transitions */
         .page-view {
             display: none;
             animation: appleFade 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .page-view.active {
-            display: block;
-        }
+        .page-view.active { display: block; }
         @keyframes appleFade {
             from { opacity: 0; transform: translateY(10px) scale(0.995); }
             to { opacity: 1; transform: translateY(0) scale(1); }
@@ -183,119 +178,63 @@ astrophotography: [
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-[#F5F5F7] selection:text-[#0D0E12]">
 
-    <!-- ===================================================================
-         LUMINOUS ASTRONOMY BACKGROUND + WARM STARLIGHT AMBIENCE
-         =================================================================== -->
     <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <img id="space-bg-img" 
-             src="" 
-             alt="" 
-             class="w-full h-full object-cover object-center scale-105 filter contrast-105"
-             style="opacity: 0.34;" />
-        <!-- Warm Star-Trail Golden-Bronze Glow on Top Right + Soft Titanium Vignette -->
+        <img id="space-bg-img" src="" alt="" class="w-full h-full object-cover object-center scale-105 filter contrast-105" style="opacity: 0.34;" />
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(229,201,155,0.18),transparent_60%)]"></div>
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(148,163,184,0.10),transparent_55%)]"></div>
         <div class="absolute inset-0 bg-gradient-to-b from-[#0D0E12]/45 via-[#0D0E12]/65 to-[#0D0E12]/95"></div>
     </div>
 
-    <!-- ===================================================================
-         APPLE-GRADE ASTRONOMY CANVAS (Subtle Orbital Arcs, Starfield & Meteors)
-         =================================================================== -->
     <canvas id="sky-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <!-- ===================================================================
-         TOP HEADER: STATIC LEFT "NEERAV SINGH" + INLINE NAVIGATION BAR
-         =================================================================== -->
     <header class="relative z-30 w-full pt-7 pb-4">
         <div class="max-w-5xl mx-auto px-6 sm:px-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            
-            <!-- Left-aligned Static Name + Inline Navigation Bar -->
             <div class="flex flex-wrap items-center gap-6 sm:gap-8 w-full justify-between">
                 <a href="#overview" onclick="switchTab('overview'); return false;" class="font-serif text-3xl sm:text-4xl tracking-tight text-[#F5F5F7] hover:opacity-85 transition-opacity leading-none">
                     Neerav Singh
                 </a>
-
-                <nav class="apple-nav-dock rounded-full p-1 flex items-center gap-1 overflow-x-auto max-w-full" aria-label="Primary Navigation">
-                    <button onclick="switchTab('overview')" data-tab="overview" class="nav-pill active px-4 py-1.5 rounded-full text-xs sm:text-[13px] whitespace-nowrap">
-                        Overview
-                    </button>
-                    <button onclick="switchTab('astrophotography')" data-tab="astrophotography" class="nav-pill px-4 py-1.5 rounded-full text-xs sm:text-[13px] whitespace-nowrap">
-                        Astrophotography
-                    </button>
-                    <button onclick="switchTab('projects')" data-tab="projects" class="nav-pill px-4 py-1.5 rounded-full text-xs sm:text-[13px] whitespace-nowrap">
-                        Projects
-                    </button>
-                    <button onclick="switchTab('cv')" data-tab="cv" class="nav-pill px-4 py-1.5 rounded-full text-xs sm:text-[13px] whitespace-nowrap">
-                        CV
-                    </button>
+                <nav class="apple-nav-dock rounded-full p-1 flex items-center gap-1 overflow-x-auto max-w-full">
+                    <button onclick="switchTab('overview')" data-tab="overview" class="nav-pill active px-4 py-1.5 rounded-full text-xs sm:text-[13px] whitespace-nowrap">Overview</button>
+                    <button onclick="switchTab('astrophotography')" data-tab="astrophotography" class="nav-pill px-4 py-1.5 rounded-full text-xs sm:text-[13px] whitespace-nowrap">Astrophotography</button>
+                    <button onclick="switchTab('projects')" data-tab="projects" class="nav-pill px-4 py-1.5 rounded-full text-xs sm:text-[13px] whitespace-nowrap">Projects</button>
+                    <button onclick="switchTab('cv')" data-tab="cv" class="nav-pill px-4 py-1.5 rounded-full text-xs sm:text-[13px] whitespace-nowrap">CV</button>
                 </nav>
             </div>
-
         </div>
     </header>
 
-    <!-- ===================================================================
-         MAIN CONTENT CONTAINER (12-Column Symmetrical Apple Layout)
-         =================================================================== -->
     <main class="relative z-10 max-w-5xl w-full mx-auto px-6 sm:px-10 pt-6 pb-20 flex-grow flex flex-col justify-between">
-
         <div>
-            <!-- ===========================================================
-                 TAB 1: OVERVIEW (Screenshot-Inspired Hero Tile, Preview, Education)
-                 =========================================================== -->
+            <!-- TAB 1: OVERVIEW -->
             <section id="tab-overview" class="page-view active space-y-8">
-
-                <!-- 1. HERO INFO TILE (Inspired by Kartik Mandar Screenshot + Large Portrait) -->
                 <div class="hero-info-tile rounded-[32px] p-7 sm:p-11 relative overflow-hidden">
-                    <!-- Subtle decorative orbital ring in top right of the card -->
                     <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full border border-white/[0.07] pointer-events-none"></div>
                     <div class="absolute -top-48 -right-48 w-[520px] h-[520px] rounded-full border border-white/[0.04] pointer-events-none"></div>
 
                     <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-center">
-                        
-                        <!-- Left 7 Cols: Monumental Condensed Serif Name + Wide-Tracked Monospace Line -->
                         <div class="md:col-span-7 space-y-6 text-left">
                             <div class="space-y-3">
-                                <h1 class="font-serif text-6xl sm:text-7xl lg:text-[84px] font-normal tracking-tight text-[#F5F5F7] leading-[0.94]">
-                                    Neerav Singh
-                                </h1>
-                                
-                                <!-- Screenshot-Inspired Tracked Uppercase Subtitle -->
+                                <h1 class="font-serif text-6xl sm:text-7xl lg:text-[84px] font-normal tracking-tight text-[#F5F5F7] leading-[0.94]">Neerav Singh</h1>
                                 <p class="font-mono text-[11px] sm:text-xs tracking-[0.22em] uppercase text-[#D6D3CD] pt-1 leading-relaxed">
-                                    BS-MS ASTROPHYSICS @ SCU &nbsp;·&nbsp; EXOPLANETS &nbsp;·&nbsp; GALAXY FORMATION &nbsp;·&nbsp; ASTROPHOTOGRAPHY
+                                    BS-MS ASTROPHYSICS @ SCU ·  ASTROPHOTOGRAPHY
                                 </p>
                             </div>
-
                             <div class="w-12 h-[1px] bg-white/20"></div>
-
-                            <!-- Crisp, Short Bio (Zero deep-sky claims, zero project mentions) -->
                             <p class="text-sm sm:text-base text-[#A1A1A6] font-light leading-relaxed max-w-xl">
-                                First-year undergraduate in the inaugural BS–MS Astronomy & Astrophysics batch at Sindhu Central University. Exploring exoplanets, galaxy formation and evolution, and night-sky astrophotography.
+                                First-year undergraduate in the inaugural BS–MS Astronomy & Astrophysics batch at Sindhu Central University. Interested in exoplanets, galaxy formation and evolution, and night-sky astrophotography.
                             </p>
                         </div>
-
-                        <!-- Right 5 Cols: Large Apple-Squircle Portrait -->
                         <div class="md:col-span-5 flex justify-center md:justify-end">
                             <div class="w-60 h-72 sm:w-72 sm:h-88 rounded-[26px] overflow-hidden bg-white/[0.04] border border-white/15 shadow-2xl shrink-0">
-                                <img id="profile-img-el" 
-                                     src="./profile.jpg" 
-                                     alt="Neerav Singh" 
-                                     class="w-full h-full object-cover"
-                                     onerror="this.src='https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=900&q=85'" />
+                                <img id="profile-img-el" src="./profile.jpg" alt="Neerav Singh" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=900&q=85'" />
                             </div>
                         </div>
-
                     </div>
                 </div>
 
-                <!-- 2. SYMMETRICAL 2-COLUMN ROW: ASTROPHOTOGRAPHY PREVIEW + EDUCATION -->
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-
-                    <!-- Astrophotography Preview Tile (5 Cols — No Fake Frames) -->
                     <div onclick="switchTab('astrophotography')" class="md:col-span-5 apple-glass rounded-[28px] p-7 sm:p-8 flex flex-col justify-between cursor-pointer group hover:border-white/25 transition-all relative overflow-hidden">
-                        <!-- Subtle starlight radial glow -->
                         <div class="absolute -bottom-16 -right-16 w-48 h-48 rounded-full bg-[#E5C99B]/10 blur-2xl pointer-events-none group-hover:bg-[#E5C99B]/20 transition-all"></div>
-
                         <div class="space-y-2 relative z-10">
                             <div class="flex items-center justify-between">
                                 <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-[#A1A1A6]">Observational Log</span>
@@ -303,77 +242,49 @@ astrophotography: [
                                     <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                                 </span>
                             </div>
-                            <h2 class="font-serif text-3xl sm:text-4xl text-[#F5F5F7] tracking-tight pt-1">
-                                Astrophotography
-                            </h2>
+                            <h2 class="font-serif text-3xl sm:text-4xl text-[#F5F5F7] tracking-tight pt-1">Astrophotography</h2>
                         </div>
-
-                        <!-- Dynamic Preview Area (Shows latest capture if added, or sleek orbital visual if empty) -->
                         <div id="home-astro-preview" class="my-6 relative z-10"></div>
-
                         <div class="flex items-center justify-between text-xs font-mono text-[#A1A1A6] group-hover:text-[#F5F5F7] transition-colors relative z-10">
                             <span>Nightscapes & Lunar Captures</span>
                             <span>Open Gallery →</span>
                         </div>
                     </div>
 
-                    <!-- Education Tile (7 Cols — Symmetrical Match) -->
                     <div class="md:col-span-7 apple-glass rounded-[28px] p-7 sm:p-8 flex flex-col justify-between">
                         <div class="space-y-6">
                             <div class="flex items-center justify-between">
                                 <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-[#A1A1A6]">Academic Background</span>
                                 <i data-lucide="graduation-cap" class="w-4 h-4 text-[#A1A1A6]"></i>
                             </div>
-
-                            <h2 class="font-serif text-3xl sm:text-4xl text-[#F5F5F7] tracking-tight">
-                                Education
-                            </h2>
-
+                            <h2 class="font-serif text-3xl sm:text-4xl text-[#F5F5F7] tracking-tight">Education</h2>
                             <div class="space-y-5 pt-1">
                                 <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 pb-5 border-b border-white/10">
                                     <div>
-                                        <h3 class="text-base font-medium text-[#F5F5F7]">
-                                            Integrated BS–MS in Astronomy & Astrophysics
-                                        </h3>
-                                        <p class="text-xs sm:text-sm text-[#A1A1A6] mt-1 font-light">
-                                            Sindhu Central University · Inaugural Batch
-                                        </p>
+                                        <h3 class="text-base font-medium text-[#F5F5F7]">Integrated BS–MS in Astronomy & Astrophysics</h3>
+                                        <p class="text-xs sm:text-sm text-[#A1A1A6] mt-1 font-light">Sindhu Central University · Inaugural Batch</p>
                                     </div>
                                     <span class="font-mono text-xs text-[#E5C99B] shrink-0">2026 — Present</span>
                                 </div>
-
                                 <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
                                     <div>
-                                        <h3 class="text-base font-medium text-[#F5F5F7]">
-                                            Higher Secondary Education (Class XII)
-                                        </h3>
-                                        <p class="text-xs sm:text-sm text-[#A1A1A6] mt-1 font-light">
-                                            Physics, Chemistry, Mathematics & Computer Science (Python)
-                                        </p>
+                                        <h3 class="text-base font-medium text-[#F5F5F7]">Higher Secondary Education (Class XII)</h3>
+                                        <p class="text-xs sm:text-sm text-[#A1A1A6] mt-1 font-light">Physics, Chemistry, Mathematics & Computer Science</p>
                                     </div>
                                     <span class="font-mono text-xs text-[#86868B] shrink-0">2025</span>
                                 </div>
                             </div>
                         </div>
-
                         <div class="pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-xs text-[#86868B]">
                             <span>Winter Break Focus: Exoplanets & Galaxy Evolution</span>
-                            <button onclick="switchTab('cv')" class="font-mono text-[#F5F5F7] hover:underline">
-                                View CV →
-                            </button>
+                            <button onclick="switchTab('cv')" class="font-mono text-[#F5F5F7] hover:underline">View CV →</button>
                         </div>
                     </div>
-
                 </div>
-
             </section>
 
-
-            <!-- ===========================================================
-                 TAB 2: ASTROPHOTOGRAPHY (Zero Inbuilt Frames — Clean Slate)
-                 =========================================================== -->
+            <!-- TAB 2: ASTROPHOTOGRAPHY -->
             <section id="tab-astrophotography" class="page-view space-y-8">
-                
                 <div class="apple-glass rounded-[28px] p-7 sm:p-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                     <div>
                         <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-[#E5C99B]">Observational Log</span>
@@ -383,18 +294,11 @@ astrophotography: [
                         Widefield nightscapes, lunar captures, and constellation exposures.
                     </p>
                 </div>
-
-                <!-- Strictly empty unless you add items in SITE_CONFIG.astrophotography -->
                 <div id="astro-gallery-grid"></div>
-
             </section>
 
-
-            <!-- ===========================================================
-                 TAB 3: PROJECTS (Exclusive Home for Hardware & Lab Builds)
-                 =========================================================== -->
+            <!-- TAB 3: PROJECTS -->
             <section id="tab-projects" class="page-view space-y-8">
-                
                 <div class="apple-glass rounded-[28px] p-7 sm:p-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                     <div>
                         <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-[#E5C99B]">Hardware & Instrumentation</span>
@@ -404,118 +308,81 @@ astrophotography: [
                         Experimental physics apparatus and tracking mechanics.
                     </p>
                 </div>
-
                 <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
-
             </section>
 
-
-            <!-- ===========================================================
-                 TAB 4: CV (Sleek Apple Document Stage — No Repeated Bio Text)
-                 =========================================================== -->
+            <!-- TAB 4: CV -->
             <section id="tab-cv" class="page-view space-y-6">
-                
                 <div class="apple-glass rounded-[28px] p-4 sm:p-6 space-y-4">
-                    
-                    <!-- Top Document Bar -->
                     <div class="flex flex-wrap items-center justify-between gap-4 px-2 pt-1">
                         <div class="flex items-center gap-3">
                             <span class="w-2.5 h-2.5 rounded-full bg-[#E5C99B]"></span>
                             <span class="font-serif text-2xl sm:text-3xl text-[#F5F5F7] tracking-tight">Curriculum Vitae</span>
                         </div>
-
                         <div class="flex items-center gap-2.5">
-                            <a id="cv-open-btn" 
-                               href="./NeeravSingh_CV.pdf" 
-                               target="_blank" 
-                               rel="noopener noreferrer"
-                               class="px-4 py-2 rounded-full bg-white/10 hover:bg-white/15 text-[#F5F5F7] text-xs font-medium transition-colors inline-flex items-center gap-1.5">
+                            <a id="cv-open-btn" href="./NeeravSingh_CV.pdf" target="_blank" class="px-4 py-2 rounded-full bg-white/10 hover:bg-white/15 text-[#F5F5F7] text-xs font-medium transition-colors inline-flex items-center gap-1.5">
                                 <span>Open in New Tab</span>
                                 <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
                             </a>
-                            <a id="cv-download-btn" 
-                               href="./NeeravSingh_CV.pdf" 
-                               target="_blank" 
-                               rel="noopener noreferrer" 
-                               download="NeeravSingh_CV.pdf"
-                               class="px-4 py-2 rounded-full bg-[#F5F5F7] text-[#0D0E12] text-xs font-medium hover:bg-white transition-colors inline-flex items-center gap-1.5 shadow-sm">
+                            <a id="cv-download-btn" href="./NeeravSingh_CV.pdf" download="NeeravSingh_CV.pdf" class="px-4 py-2 rounded-full bg-[#F5F5F7] text-[#0D0E12] text-xs font-medium hover:bg-white transition-colors inline-flex items-center gap-1.5 shadow-sm">
                                 <i data-lucide="download" class="w-3.5 h-3.5"></i>
                                 <span>Download</span>
                             </a>
                         </div>
                     </div>
-
-                    <!-- Embedded PDF Stage -->
                     <div class="w-full h-[80vh] rounded-[20px] overflow-hidden border border-white/10 bg-[#090A0D]">
-                        <iframe id="cv-iframe" 
-                                src="./NeeravSingh_CV.pdf" 
-                                class="w-full h-full border-0" 
-                                allow="autoplay" 
-                                title="Curriculum Vitae"></iframe>
+                        <iframe id="cv-iframe" src="./NeeravSingh_CV.pdf" class="w-full h-full border-0"></iframe>
                     </div>
-
                 </div>
-
             </section>
         </div>
 
-        <!-- ===============================================================
-             LOWER CONNECT BAR (Moved Low at the Bottom of the Page)
-             =============================================================== -->
+        <!-- LOWER CONNECT BAR -->
         <footer class="mt-24 pt-10 border-t border-white/10">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                 <div>
                     <span class="font-mono text-[11px] tracking-[0.22em] uppercase text-[#86868B] block">Connect</span>
-                    <p class="text-xs text-[#A1A1A6] mt-1 font-light">
-                        Neerav Singh · Sindhu Central University
-                    </p>
+                    <p class="text-xs text-[#A1A1A6] mt-1 font-light">Neerav Singh · Sindhu Central University</p>
                 </div>
-
                 <div class="flex flex-wrap items-center gap-3">
-                    <a href="mailto:neeravsingh91495@gmail.com" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 transition-all inline-flex items-center gap-2">
-                        <i data-lucide="mail" class="w-3.5 h-3.5 text-[#E5C99B]"></i>
-                        <span>neeravsingh91495@gmail.com</span>
+                    <a href="mailto:neeravsingh91495@gmail.com" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 inline-flex items-center gap-2">
+                        <i data-lucide="mail" class="w-3.5 h-3.5 text-[#E5C99B]"></i><span>neeravsingh91495@gmail.com</span>
                     </a>
-                    <a href="https://t.me/neeravsingh" target="_blank" rel="noopener noreferrer" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 transition-all inline-flex items-center gap-2">
-                        <i data-lucide="send" class="w-3.5 h-3.5 text-[#E5C99B]"></i>
-                        <span>@neeravsingh</span>
+                    <a href="https://t.me/neeravsingh" target="_blank" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 inline-flex items-center gap-2">
+                        <i data-lucide="send" class="w-3.5 h-3.5 text-[#E5C99B]"></i><span>@neeravsingh</span>
                     </a>
-                    <a href="https://www.youtube.com/@Nikolax08" target="_blank" rel="noopener noreferrer" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 transition-all inline-flex items-center gap-2">
-                        <i data-lucide="youtube" class="w-3.5 h-3.5 text-[#E5C99B]"></i>
-                        <span>@Nikolax08</span>
+                    <a href="https://www.youtube.com/@Nikolax08" target="_blank" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 inline-flex items-center gap-2">
+                        <i data-lucide="youtube" class="w-3.5 h-3.5 text-[#E5C99B]"></i><span>@Nikolax08</span>
                     </a>
                 </div>
             </div>
         </footer>
-
     </main>
 
-    <!-- ===================================================================
-         LIGHTBOX MODAL FOR ASTROPHOTOGRAPHY
-         =================================================================== -->
+    <!-- LIGHTBOX MODAL -->
     <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-10 bg-black/90 backdrop-blur-xl" onclick="closeLightbox()">
         <div class="max-w-5xl w-full flex flex-col items-center gap-4" onclick="event.stopPropagation()">
-            <img id="lightbox-img" src="" alt="" class="max-h-[82vh] w-auto object-contain rounded-2xl border border-white/10">
-            <div class="w-full flex items-center justify-between text-xs text-[#A1A1A6] pt-2">
-                <div>
-                    <span id="lightbox-title" class="text-[#F5F5F7] font-medium"></span>
-                    <span id="lightbox-caption" class="ml-3 font-mono text-[#86868B]"></span>
+            <img id="lightbox-img" src="" alt="" class="max-h-[75vh] w-auto object-contain rounded-2xl border border-white/10">
+            <div class="w-full flex items-start justify-between text-xs pt-2">
+                <div class="space-y-2">
+                    <div id="lightbox-title" class="text-[#F5F5F7] font-medium text-base"></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 font-mono text-[#A1A1A6] text-[11px]">
+                        <p><span class="text-[#52525B]">TARGET:</span> <span id="lightbox-target"></span></p>
+                        <p><span class="text-[#52525B]">LOC:</span> <span id="lightbox-location"></span></p>
+                        <p><span class="text-[#52525B]">GEAR:</span> <span id="lightbox-equipment"></span></p>
+                        <p><span class="text-[#52525B]">EXIF:</span> <span id="lightbox-settings"></span></p>
+                    </div>
                 </div>
-                <button onclick="closeLightbox()" class="px-3 py-1 rounded-full bg-white/10 text-[#F5F5F7] font-mono">Close</button>
+                <button onclick="closeLightbox()" class="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-[#F5F5F7] font-mono transition-colors">Close</button>
             </div>
         </div>
     </div>
 
-    <!-- ===================================================================
-         SCRIPT: GOOGLE DRIVE LINK CONVERTER, RENDERER & ORBITAL STARFIELD
-         =================================================================== -->
     <script>
         function resolveDriveImage(url) {
             if (!url) return "";
             const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
-            if (match && match[1]) {
-                return `https://lh3.googleusercontent.com/d/${match[1]}`;
-            }
+            if (match && match[1]) return `https://lh3.googleusercontent.com/d/${match[1]}`;
             return url;
         }
 
@@ -539,35 +406,27 @@ astrophotography: [
             document.querySelectorAll('.nav-pill').forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
             });
-
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            lucide.createIcons();
         }
 
         function initSite() {
-            // 1. Background Astronomy Image
             const bgImg = document.getElementById('space-bg-img');
             if (SITE_CONFIG.backgroundSpaceImage) {
                 bgImg.src = resolveDriveImage(SITE_CONFIG.backgroundSpaceImage);
                 bgImg.style.opacity = SITE_CONFIG.backgroundOpacity ?? 0.34;
             }
 
-            // 2. Profile Photo
             if (SITE_CONFIG.profilePhoto) {
                 document.getElementById('profile-img-el').src = resolveDriveImage(SITE_CONFIG.profilePhoto);
             }
 
-            // 3. Astrophotography Tab & Home Preview (Zero fake placeholder frames)
             const shots = SITE_CONFIG.astrophotography || [];
             const astroGrid = document.getElementById('astro-gallery-grid');
             const homePreview = document.getElementById('home-astro-preview');
 
             if (shots.length === 0) {
-                // Keep Astrophotography tab completely free of fake placeholder boxes
                 astroGrid.innerHTML = "";
                 astroGrid.className = "";
-
-                // Sleek Apple-style orbital dial graphic on the Home Preview card
                 homePreview.innerHTML = `
                     <div class="h-36 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center relative overflow-hidden">
                         <div class="w-28 h-28 rounded-full border border-[#E5C99B]/25 flex items-center justify-center">
@@ -575,31 +434,32 @@ astrophotography: [
                                 <span class="w-2 h-2 rounded-full bg-[#E5C99B] shadow-[0_0_12px_#E5C99B]"></span>
                             </div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             } else {
                 astroGrid.className = "grid grid-cols-1 sm:grid-cols-2 gap-7";
                 astroGrid.innerHTML = shots.map((shot, idx) => `
-                    <figure class="apple-glass rounded-[24px] p-3.5 cursor-pointer group transition-all hover:border-white/25" onclick="openLightbox(${idx})">
-                        <div class="aspect-[4/3] overflow-hidden rounded-[18px] bg-black/40">
+                    <figure class="apple-glass rounded-[24px] p-4 cursor-pointer group transition-all hover:border-white/25 flex flex-col" onclick="openLightbox(${idx})">
+                        <div class="aspect-[4/3] overflow-hidden rounded-[18px] bg-black/40 mb-4">
                             <img src="${resolveDriveImage(shot.imageUrl)}" alt="${shot.title || ''}" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500">
                         </div>
-                        <figcaption class="px-2 pt-3.5 pb-1 flex items-baseline justify-between text-xs">
-                            <span class="text-[#F5F5F7] font-medium">${shot.title || ''}</span>
-                            <span class="font-mono text-[#A1A1A6]">${shot.caption || ''}</span>
+                        <figcaption class="flex-grow flex flex-col justify-between space-y-3 text-left">
+                            <span class="text-[#F5F5F7] font-medium text-lg leading-tight block">${shot.title || ''}</span>
+                            <div class="grid grid-cols-1 gap-1 font-mono text-[10px] sm:text-[11px] text-[#A1A1A6]">
+                                <p class="truncate"><span class="text-[#52525B]">TARGET:</span> ${shot.target || 'N/A'}</p>
+                                <p class="truncate"><span class="text-[#52525B]">LOC:</span> ${shot.location || 'N/A'}</p>
+                                <p class="truncate"><span class="text-[#52525B]">GEAR:</span> ${shot.equipment || 'N/A'}</p>
+                                <p class="truncate"><span class="text-[#52525B]">EXIF:</span> ${shot.settings || 'N/A'}</p>
+                            </div>
                         </figcaption>
                     </figure>
                 `).join('');
 
-                const firstShot = shots[0];
                 homePreview.innerHTML = `
                     <div class="aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 bg-black/40">
-                        <img src="${resolveDriveImage(firstShot.imageUrl)}" alt="${firstShot.title || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    </div>
-                `;
+                        <img src="${resolveDriveImage(shots[0].imageUrl)}" alt="${shots[0].title || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>`;
             }
 
-            // 4. Projects Tab (Exclusive to Projects Tab)
             const projGrid = document.getElementById('projects-grid');
             projGrid.innerHTML = (SITE_CONFIG.projects || []).map(p => `
                 <article class="apple-glass rounded-[28px] p-7 flex flex-col justify-between space-y-6 hover:border-white/25 transition-all">
@@ -611,11 +471,10 @@ astrophotography: [
                     ${p.imageUrl ? `
                         <div class="aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black/40">
                             <img src="${resolveDriveImage(p.imageUrl)}" alt="${p.title}" class="w-full h-full object-cover">
-                        </div>
-                    ` : ''}
+                        </div>` : ''}
                     ${p.linkUrl ? `
                         <div class="pt-4 border-t border-white/10">
-                            <a href="${p.linkUrl}" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-[#F5F5F7] hover:text-[#E5C99B] inline-flex items-center gap-1.5 transition-colors">
+                            <a href="${p.linkUrl}" target="_blank" class="font-mono text-xs text-[#F5F5F7] hover:text-[#E5C99B] inline-flex items-center gap-1.5 transition-colors">
                                 <span>Watch Demonstration</span>
                                 <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
                             </a>
@@ -624,14 +483,12 @@ astrophotography: [
                 </article>
             `).join('');
 
-            // 5. CV PDF
             if (SITE_CONFIG.cvPdfDriveLink) {
                 const pdf = resolveDrivePdf(SITE_CONFIG.cvPdfDriveLink.trim());
                 document.getElementById('cv-iframe').src = pdf.preview;
                 document.getElementById('cv-download-btn').href = pdf.download;
                 document.getElementById('cv-open-btn').href = pdf.preview;
             }
-
             lucide.createIcons();
         }
 
@@ -639,8 +496,11 @@ astrophotography: [
             const shot = SITE_CONFIG.astrophotography[index];
             if (!shot) return;
             document.getElementById('lightbox-img').src = resolveDriveImage(shot.imageUrl);
-            document.getElementById('lightbox-title').textContent = shot.title || '';
-            document.getElementById('lightbox-caption').textContent = shot.caption || '';
+            document.getElementById('lightbox-title').textContent = shot.title || 'Untitled';
+            document.getElementById('lightbox-target').textContent = shot.target || 'N/A';
+            document.getElementById('lightbox-location').textContent = shot.location || 'N/A';
+            document.getElementById('lightbox-equipment').textContent = shot.equipment || 'N/A';
+            document.getElementById('lightbox-settings').textContent = shot.settings || 'N/A';
             const lb = document.getElementById('lightbox');
             lb.classList.remove('hidden');
             lb.classList.add('flex');
@@ -652,17 +512,12 @@ astrophotography: [
             lb.classList.remove('flex');
         }
 
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeLightbox();
-        });
+        window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 
-        // ===================================================================
-        // SUBTLE STARFIELD & SHOOTING STARS
-        // ===================================================================
+        // STARFIELD ANIMATION
         const canvas = document.getElementById('sky-canvas');
         const ctx = canvas.getContext('2d');
-        let stars = [];
-        let meteors = [];
+        let stars = [], meteors = [];
 
         function resizeSky() {
             canvas.width = window.innerWidth;
@@ -692,7 +547,6 @@ astrophotography: [
 
         function animateSky() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             for (const s of stars) {
                 s.alpha += s.dAlpha;
                 if (s.alpha > 0.75 || s.alpha < 0.12) s.dAlpha *= -1;
@@ -701,7 +555,6 @@ astrophotography: [
                 ctx.fillStyle = `rgba(245, 245, 247, ${s.alpha})`;
                 ctx.fill();
             }
-
             spawnMeteor();
             for (let i = meteors.length - 1; i >= 0; i--) {
                 const m = meteors[i];
@@ -710,32 +563,22 @@ astrophotography: [
                 const grad = ctx.createLinearGradient(m.x, m.y, tx, ty);
                 grad.addColorStop(0, `rgba(229, 201, 155, ${m.alpha})`);
                 grad.addColorStop(1, 'rgba(229, 201, 155, 0)');
-
                 ctx.beginPath();
                 ctx.moveTo(m.x, m.y);
                 ctx.lineTo(tx, ty);
                 ctx.strokeStyle = grad;
                 ctx.lineWidth = 1.2;
                 ctx.stroke();
-
                 m.x += Math.cos(m.angle) * m.speed;
                 m.y += Math.sin(m.angle) * m.speed;
                 m.alpha -= 0.016;
-
-                if (m.alpha <= 0 || m.x > canvas.width || m.y > canvas.height) {
-                    meteors.splice(i, 1);
-                }
+                if (m.alpha <= 0 || m.x > canvas.width || m.y > canvas.height) meteors.splice(i, 1);
             }
-
             requestAnimationFrame(animateSky);
         }
 
         window.addEventListener('resize', resizeSky);
-        window.onload = () => {
-            resizeSky();
-            initSite();
-            animateSky();
-        };
+        window.onload = () => { resizeSky(); initSite(); animateSky(); };
     </script>
 </body>
 </html>
