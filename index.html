@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Neerav Singh — Astronomy & Astrophysics</title>
 
     <!-- =======================================================================
@@ -91,8 +92,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons (Pinned version for security and stability) -->
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -216,7 +217,7 @@
                             <div class="space-y-3">
                                 <h1 class="font-serif text-6xl sm:text-7xl lg:text-[84px] font-normal tracking-tight text-[#F5F5F7] leading-[0.94]">Neerav Singh</h1>
                                 <p class="font-mono text-[11px] sm:text-xs tracking-[0.22em] uppercase text-[#D6D3CD] pt-1 leading-relaxed">
-                                    BS-MS ASTROPHYSICS @ SCU ·  ASTROPHOTOGRAPHY
+                                    BS-MS ASTROPHYSICS @ SCU ·  ASTROPHOTOGRAPHY
                                 </p>
                             </div>
                             <div class="w-12 h-[1px] bg-white/20"></div>
@@ -319,18 +320,18 @@
                             <span class="font-serif text-2xl sm:text-3xl text-[#F5F5F7] tracking-tight">Curriculum Vitae</span>
                         </div>
                         <div class="flex items-center gap-2.5">
-                            <a id="cv-open-btn" href="./NeeravSingh_CV.pdf" target="_blank" class="px-4 py-2 rounded-full bg-white/10 hover:bg-white/15 text-[#F5F5F7] text-xs font-medium transition-colors inline-flex items-center gap-1.5">
+                            <a id="cv-open-btn" href="./NeeravSingh_CV.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/10 hover:bg-white/15 text-[#F5F5F7] text-xs font-medium transition-colors inline-flex items-center gap-1.5">
                                 <span>Open in New Tab</span>
                                 <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
                             </a>
-                            <a id="cv-download-btn" href="./NeeravSingh_CV.pdf" download="NeeravSingh_CV.pdf" class="px-4 py-2 rounded-full bg-[#F5F5F7] text-[#0D0E12] text-xs font-medium hover:bg-white transition-colors inline-flex items-center gap-1.5 shadow-sm">
+                            <a id="cv-download-btn" href="./NeeravSingh_CV.pdf" download="NeeravSingh_CV.pdf" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-[#F5F5F7] text-[#0D0E12] text-xs font-medium hover:bg-white transition-colors inline-flex items-center gap-1.5 shadow-sm">
                                 <i data-lucide="download" class="w-3.5 h-3.5"></i>
                                 <span>Download</span>
                             </a>
                         </div>
                     </div>
                     <div class="w-full h-[80vh] rounded-[20px] overflow-hidden border border-white/10 bg-[#090A0D]">
-                        <iframe id="cv-iframe" src="./NeeravSingh_CV.pdf" class="w-full h-full border-0"></iframe>
+                        <iframe id="cv-iframe" src="./NeeravSingh_CV.pdf" class="w-full h-full border-0" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
                     </div>
                 </div>
             </section>
@@ -347,11 +348,15 @@
                     <a href="mailto:neeravsingh91495@gmail.com" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 inline-flex items-center gap-2">
                         <i data-lucide="mail" class="w-3.5 h-3.5 text-[#E5C99B]"></i><span>neeravsingh91495@gmail.com</span>
                     </a>
-                    <a href="https://t.me/neeravsingh" target="_blank" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 inline-flex items-center gap-2">
+                    <a href="https://t.me/neeravsingh" target="_blank" rel="noopener noreferrer" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 inline-flex items-center gap-2">
                         <i data-lucide="send" class="w-3.5 h-3.5 text-[#E5C99B]"></i><span>@neeravsingh</span>
                     </a>
-                    <a href="https://www.youtube.com/@Nikolax08" target="_blank" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 inline-flex items-center gap-2">
-                        <i data-lucide="youtube" class="w-3.5 h-3.5 text-[#E5C99B]"></i><span>@Nikolax08</span>
+                    <a href="https://www.youtube.com/@Nikolax08" target="_blank" rel="noopener noreferrer" class="apple-glass px-4 py-2 rounded-full text-xs font-mono text-[#F5F5F7] hover:border-white/30 inline-flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-[#E5C99B] shrink-0">
+                            <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+                            <path d="m10 15 5-3-5-3v6Z" />
+                        </svg>
+                        <span>@Nikolax08</span>
                     </a>
                 </div>
             </div>
@@ -378,6 +383,16 @@
     </div>
 
     <script>
+        function escapeHTML(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/&/g, "&")
+                .replace(/</g, "<")
+                .replace(/>/g, ">")
+                .replace(/"/g, """)
+                .replace(/'/g, "'");
+        }
+
         function resolveDriveImage(url) {
             if (!url) return "";
             const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
@@ -389,6 +404,12 @@
             if (!url) return { preview: "", download: "" };
             const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
             if (match && match[1]) {
+                if (url.includes("docs.google.com/document")) {
+                    return {
+                        preview: `https://docs.google.com/document/d/${match[1]}/preview`,
+                        download: `https://docs.google.com/document/d/${match[1]}/export?format=pdf`
+                    };
+                }
                 return {
                     preview: `https://drive.google.com/file/d/${match[1]}/preview`,
                     download: `https://drive.google.com/uc?export=download&id=${match[1]}`
@@ -439,15 +460,15 @@
                 astroGrid.innerHTML = shots.map((shot, idx) => `
                     <figure class="apple-glass rounded-[24px] p-4 cursor-pointer group transition-all hover:border-white/25 flex flex-col" onclick="openLightbox(${idx})">
                         <div class="aspect-[4/3] overflow-hidden rounded-[18px] bg-black/40 mb-4">
-                            <img src="${resolveDriveImage(shot.imageUrl)}" alt="${shot.title || ''}" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500">
+                            <img src="${escapeHTML(resolveDriveImage(shot.imageUrl))}" alt="${escapeHTML(shot.title || '')}" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500">
                         </div>
                         <figcaption class="flex-grow flex flex-col justify-between space-y-3 text-left">
-                            <span class="text-[#F5F5F7] font-medium text-lg leading-tight block">${shot.title || ''}</span>
+                            <span class="text-[#F5F5F7] font-medium text-lg leading-tight block">${escapeHTML(shot.title || '')}</span>
                             <div class="grid grid-cols-1 gap-1 font-mono text-[10px] sm:text-[11px] text-[#A1A1A6]">
-                                <p class="truncate"><span class="text-[#52525B]">TARGET:</span> ${shot.target || 'N/A'}</p>
-                                <p class="truncate"><span class="text-[#52525B]">LOC:</span> ${shot.location || 'N/A'}</p>
-                                <p class="truncate"><span class="text-[#52525B]">GEAR:</span> ${shot.equipment || 'N/A'}</p>
-                                <p class="truncate"><span class="text-[#52525B]">EXIF:</span> ${shot.settings || 'N/A'}</p>
+                                <p class="truncate"><span class="text-[#52525B]">TARGET:</span> ${escapeHTML(shot.target || 'N/A')}</p>
+                                <p class="truncate"><span class="text-[#52525B]">LOC:</span> ${escapeHTML(shot.location || 'N/A')}</p>
+                                <p class="truncate"><span class="text-[#52525B]">GEAR:</span> ${escapeHTML(shot.equipment || 'N/A')}</p>
+                                <p class="truncate"><span class="text-[#52525B]">EXIF:</span> ${escapeHTML(shot.settings || 'N/A')}</p>
                             </div>
                         </figcaption>
                     </figure>
@@ -455,7 +476,7 @@
 
                 homePreview.innerHTML = `
                     <div class="aspect-[16/9] rounded-2xl overflow-hidden border border-white/10 bg-black/40">
-                        <img src="${resolveDriveImage(shots[0].imageUrl)}" alt="${shots[0].title || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <img src="${escapeHTML(resolveDriveImage(shots[0].imageUrl))}" alt="${escapeHTML(shots[0].title || '')}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     </div>`;
             }
 
@@ -463,17 +484,17 @@
             projGrid.innerHTML = (SITE_CONFIG.projects || []).map(p => `
                 <article class="apple-glass rounded-[28px] p-7 flex flex-col justify-between space-y-6 hover:border-white/25 transition-all">
                     <div class="space-y-3">
-                        <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-[#E5C99B] block">${p.subtitle || ''}</span>
-                        <h2 class="font-serif text-3xl text-[#F5F5F7] tracking-tight leading-snug">${p.title}</h2>
-                        <p class="text-xs sm:text-sm text-[#A1A1A6] font-light leading-relaxed pt-1">${p.description}</p>
+                        <span class="font-mono text-[11px] tracking-[0.16em] uppercase text-[#E5C99B] block">${escapeHTML(p.subtitle || '')}</span>
+                        <h2 class="font-serif text-3xl text-[#F5F5F7] tracking-tight leading-snug">${escapeHTML(p.title)}</h2>
+                        <p class="text-xs sm:text-sm text-[#A1A1A6] font-light leading-relaxed pt-1">${escapeHTML(p.description)}</p>
                     </div>
                     ${p.imageUrl ? `
                         <div class="aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black/40">
-                            <img src="${resolveDriveImage(p.imageUrl)}" alt="${p.title}" class="w-full h-full object-cover">
+                            <img src="${escapeHTML(resolveDriveImage(p.imageUrl))}" alt="${escapeHTML(p.title)}" class="w-full h-full object-cover">
                         </div>` : ''}
                     ${p.linkUrl ? `
                         <div class="pt-4 border-t border-white/10">
-                            <a href="${p.linkUrl}" target="_blank" class="font-mono text-xs text-[#F5F5F7] hover:text-[#E5C99B] inline-flex items-center gap-1.5 transition-colors">
+                            <a href="${escapeHTML(p.linkUrl)}" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-[#F5F5F7] hover:text-[#E5C99B] inline-flex items-center gap-1.5 transition-colors">
                                 <span>Watch Demonstration</span>
                                 <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
                             </a>
